@@ -34,11 +34,15 @@ class Calculator {
   }
 
   getHistory() {
-    return this.history;
+    return [...this.history];
   }
 
   clearHistory() {
     this.history = [];
+  }
+
+  getLastOperation() {
+    return this.history[this.history.length - 1] || null;
   }
 }
 
