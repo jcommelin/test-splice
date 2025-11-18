@@ -35,12 +35,18 @@ app.post('/products', (req, res) => {
 // Error handling
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send('Something broke!');
+  res.status(500).json({ error: 'Internal server error' });
 });
 
 // 404 handler
 app.use((req, res) => {
-  res.status(404).send('Not found');
+  res.status(404).json({ error: 'Not found' });
+});
+
+// Graceful shutdown
+process.on('SIGTERM', () => {
+  console.log('SIGTERM received, shutting down gracefully');
+  process.exit(0);
 });
 
 // Start server
