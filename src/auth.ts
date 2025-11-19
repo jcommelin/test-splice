@@ -1,3 +1,4 @@
+  isVerified: boolean;
 /**
  * Authentication module for user management
  */
