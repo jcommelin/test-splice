@@ -13,6 +13,8 @@ export interface User {
   createdAt: Date;
   lastLogin?: Date;
   roles: string[];
+  isVerified: boolean;
+  twoFactorEnabled: boolean;
 }
 
 export interface Session {
