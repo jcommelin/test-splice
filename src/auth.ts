@@ -13,6 +13,7 @@ export interface User {
   createdAt: Date;
   lastLogin?: Date;
   roles: string[];
+  permissions: string[];
 }
 
 export interface Session {
