@@ -36,10 +36,11 @@ const defaultConfig: DatabaseConfig = {
 };
 
 /**
- * Build a connection string from config
+ * Build a connection string from config with SSL support
  */
-export function buildConnectionString(config = defaultConfig): string {
-  return `postgresql://${config.username}:${config.password}@${config.host}:${config.port}/${config.database}`;
+export function buildConnectionString(config = defaultConfig, useSSL = false): string {
+  const sslParam = useSSL ? '?sslmode=require' : '';
+  return `postgresql://${config.username}:${config.password}@${config.host}:${config.port}/${config.database}${sslParam}`;
 }
 
 /**
@@ -129,9 +130,13 @@ export function buildDeleteQuery(table: string, whereClause: string): string {
 }
 
 /**
- * Validate a table name to prevent SQL injection
+ * Validate a table name to prevent SQL injection with schema support
  */
-export function isValidTableName(name: string): boolean {
+export function isValidTableName(name: string, allowSchema = true): boolean {
+  if (allowSchema && name.includes('.')) {
+    const parts = name.split('.');
+    return parts.every(part => /^[a-zA-Z_][a-zA-Z0-9_]*$/.test(part));
+  }
   return /^[a-zA-Z_][a-zA-Z0-9_]*$/.test(name);
 }
 

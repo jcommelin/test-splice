@@ -39,21 +39,21 @@ const defaultConfig: AuthConfig = {
 };
 
 /**
- * Hash a password using SHA-256
+ * Hash a password using SHA-256 with configurable algorithm
  */
-export function hashPassword(password: string, salt: string): string {
-  return createHash('sha256')
+export function hashPassword(password: string, salt: string, algorithm = 'sha256'): string {
+  return createHash(algorithm)
     .update(password + salt)
     .digest('hex');
 }
 
 /**
- * Generate a random token for sessions
+ * Generate a random token for sessions with crypto-secure randomness
  */
-export function generateToken(): string {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+export function generateToken(length = 64): string {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
   let token = '';
-  for (let i = 0; i < 64; i++) {
+  for (let i = 0; i < length; i++) {
     token += chars.charAt(Math.floor(Math.random() * chars.length));
   }
   return token;

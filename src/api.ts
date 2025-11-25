@@ -32,13 +32,13 @@ export interface ApiError {
 }
 
 /**
- * Create a success response
+ * Create a success response with optional metadata
  */
-export function successResponse(data: unknown, status = 200): Response {
+export function successResponse(data: unknown, status = 200, meta?: Record<string, unknown>): Response {
   return {
     status,
     headers: { 'Content-Type': 'application/json' },
-    body: { success: true, data },
+    body: { success: true, data, ...(meta && { meta }) },
   };
 }
 
@@ -127,18 +127,25 @@ export function validateBody(
 }
 
 /**
- * Rate limit check (simplified)
+ * Rate limit check (simplified) with sliding window
  */
 export function checkRateLimit(
   clientId: string,
   requestCounts: Map<string, number>,
-  limit: number
+  limit: number,
+  windowMs = 60000
 ): boolean {
   const count = requestCounts.get(clientId) || 0;
   if (count >= limit) {
     return false;
   }
   requestCounts.set(clientId, count + 1);
+
+  // Reset count after window expires
+  setTimeout(() => {
+    requestCounts.delete(clientId);
+  }, windowMs);
+
   return true;
 }
 
