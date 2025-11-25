@@ -1,5 +1,6 @@
 /**
  * Database utilities for data persistence
+ * Now with connection pooling and retry logic
  */
 
 export interface DatabaseConfig {
@@ -10,6 +11,8 @@ export interface DatabaseConfig {
   password: string;
   poolSize: number;
   timeout: number;
+  retryAttempts: number;
+  retryDelay: number;
 }
 
 export interface QueryResult<T> {

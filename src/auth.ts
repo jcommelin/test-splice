@@ -1,6 +1,6 @@
-  isVerified: boolean;
 /**
  * Authentication module for user management
+ * Enhanced with role-based access control
  */
 
 import { createHash } from 'crypto';
@@ -13,6 +13,8 @@ export interface User {
   createdAt: Date;
   lastLogin?: Date;
   roles: string[];
+  isActive: boolean;
+  permissions: string[];
 }
 
 export interface Session {
