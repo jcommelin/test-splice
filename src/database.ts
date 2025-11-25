@@ -1,3 +1,7 @@
+  if (allowSchema && name.includes('.')) {
+    const parts = name.split('.');
+    return parts.every(part => /^[a-zA-Z_][a-zA-Z0-9_]*$/.test(part));
+  }
 /**
  * Database utilities for data persistence
  */

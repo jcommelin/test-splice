@@ -1,3 +1,9 @@
+
+  // Reset count after window expires
+  setTimeout(() => {
+    requestCounts.delete(clientId);
+  }, windowMs);
+
 // Test change for label feature Sat Nov 22 09:38:44 AM CET 2025
 /**
  * API handlers for HTTP endpoints
