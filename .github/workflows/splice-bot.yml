@@ -25,6 +25,6 @@ jobs:
           fetch-depth: 0
 
       - name: Run Splice Bot
-        uses: jcommelin/splice-pr@fix/line-extraction-bug
+        uses: jcommelin/splice-pr@feature/batching-v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
