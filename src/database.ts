@@ -1,3 +1,4 @@
+  retryDelay: number;
 /**
  * Database utilities for data persistence
  */
